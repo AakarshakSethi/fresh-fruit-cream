@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printable QR Poster - Fresh Fruit Cream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --cream: #FFF6E9;
+    --mango: #FFB238;
+    --strawberry: #F2496B;
+    --kiwi: #6FA83B;
+    --plum-text: #3C2A1E;
+  }
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--plum-text);
+    background: #e9e9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* The A4 Page Canvas */
+  .poster {
+    width: 210mm;
+    height: 297mm;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  
+  /* Decorative background blobs */
+  .blob1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: rgba(255,178,56,0.25); border-radius: 50%; filter: blur(60px); }
+  .blob2 { position: absolute; bottom: -150px; right: -150px; width: 600px; height: 600px; background: rgba(242,73,107,0.20); border-radius: 50%; filter: blur(70px); }
+  
+  /* Main Content Box */
+  .content {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+    border-radius: 40px;
+    padding: 70px 50px;
+    width: 85%;
+    max-width: 650px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(60, 42, 30, 0.08);
+    border: 3px solid rgba(234, 223, 203, 0.6);
+  }
+  
+  .badge {
+    display: inline-block;
+    background: var(--mango);
+    color: #3C2A1E;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    padding: 12px 32px;
+    border-radius: 999px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 0 rgba(60,42,30,0.15);
+  }
+  
+  h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 56px;
+    margin: 0 0 18px;
+    line-height: 1.1;
+  }
+  h1 span { color: var(--strawberry); }
+  
+  p.subtitle {
+    font-size: 22px;
+    color: #7A6152;
+    margin: 0 0 45px;
+    line-height: 1.5;
+  }
+  
+  .qr-wrapper {
+    display: inline-block;
+    background: #fff;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 3px dashed #EADFCB;
+    margin-bottom: 35px;
+  }
+  
+  #qrcodeCanvas {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .call-to-action {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 38px;
+    color: var(--kiwi);
+    margin: 0;
+  }
+  
+  .footer-text {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #7A6152;
+    font-weight: 600;
+    z-index: 10;
+  }
+
+  /* When printing, remove shadows and background so it prints clean */
+  @media print {
+    body { background: none; }
+    .poster { box-shadow: none; width: 100%; height: 100%; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  
+  <div class="content">
+    <div class="badge">🍧 Fresh from the Cart</div>
+    <h1>How was your <br><span>Fruit Cream?</span></h1>
+    <p class="subtitle">We value your taste! Scan the QR code below to leave your honest feedback and tell us how we can make your next scoop even better.</p>
+    
+    <div class="qr-wrapper">
+      <div id="qrcodeCanvas"></div>
+    </div>
+    
+    <p class="call-to-action">Scan to share your thoughts! 📸</p>
+    
+    <div style="margin-top: 30px; padding: 15px; background: #F4FBEE; border: 2px solid var(--kiwi); border-radius: 16px;">
+      <p style="margin: 0; font-size: 17px; color: #3C2A1E; font-weight: 500;">
+        <strong>Bonus:</strong> Join our WhatsApp Channel via the link in the form for daily updates, new flavors, and sweet surprises! 📲
+      </p>
+    </div>
+  </div>
+  
+  <div class="footer-text">Made with ❤️ for our wonderful customers</div>
+</div>
+
+<script>
+  // Tumhari live Netlify site ka link
+  const LIVE_URL = "https://fresh-fruit-cream.netlify.app/"; 
+  
+  new QRCode(document.getElementById("qrcodeCanvas"), {
+    text: LIVE_URL,
+    width: 280,
+    height: 280,
+    colorDark: "#3C2A1E",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>
