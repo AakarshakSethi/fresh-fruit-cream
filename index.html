@@ -617,7 +617,7 @@ function renderEntries(){
         alert('Please write a reply first.');
         return;
       }
-      let number = btn.dataset.wa.replace(/D/g,'');
+      let number = btn.dataset.wa.replace(/\D/g,'');
       if(number.length === 10) number = '91' + number; // default India code if not included
       const message = encodeURIComponent(replyText);
       window.open(`https://wa.me/${number}?text=${message}`, '_blank');
